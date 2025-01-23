@@ -10,8 +10,14 @@ const logger = (req, res, next) => {
 
 // Custom Authentication Middleware
 const authenticate = (req, res, next) => {
-    
-}
+    const authenticated = true;
+    if (authenticated) {
+        console.log('User authenticated');
+        next();
+    } else {
+        res.status(403).send('Forbidden');
+    }
+};
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Diamond Verse');
