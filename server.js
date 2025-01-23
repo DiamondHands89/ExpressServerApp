@@ -19,6 +19,10 @@ const authenticate = (req, res, next) => {
     }
 };
 
+// Call Middleware
+app.use(logger);
+app.use(authenticate);
+
 app.get('/', (req, res) => {
     res.send('Welcome to the Diamond Verse');
 });
