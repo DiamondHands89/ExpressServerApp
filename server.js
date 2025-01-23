@@ -19,9 +19,16 @@ const authenticate = (req, res, next) => {
     }
 };
 
+// Error-Handling Middleware
+const errorHandler = (err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+};
+
 // Call Middleware
 app.use(logger);
 app.use(authenticate);
+app.use(errorHandler);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Diamond Verse');
@@ -30,4 +37,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
