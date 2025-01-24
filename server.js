@@ -8,7 +8,7 @@ const posts = require('./data/posts');
 const comments = require('./data/comments');
 
 // Define Routes
-app.get('users', (req, res) => {
+app.get('/users', (req, res) => {
     res.json(users);
 });
 
