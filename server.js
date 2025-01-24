@@ -29,6 +29,25 @@ app.get('/comments', (req, res) => {
     res.json(comments);
 });
 
+// Define POST Routes
+app.post('/users', (req, res) => {
+    const newUser = req.body;
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
+app.post('/posts', (req, res) => {
+    const newPost = req.body;
+    posts.push(newPost);
+    res.status(201).json(newPost);
+});
+
+app.post('/comments', (req, res) => {
+    const newComment = req.body;
+    comments.push(newComment);
+    res.status(201).json(newComment);
+});
+
 
 // Call Middleware
 app.use(logger);
