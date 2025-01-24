@@ -2,6 +2,24 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Import data files
+const users = require('./data/users');
+const posts = require('./data/posts');
+const comments = require('./data/comments');
+
+// Define Routes
+app.get('users', (req, res) => {
+    res.json(users);
+});
+
+app.get('/posts', (req, res) => {
+    res.json(posts);
+});
+  
+app.get('/comments', (req, res) => {
+    res.json(comments);
+});
+
 // Cusom Logging Middleware
 const logger = (req, res, next) => {
     console.log(`${req.method} ${req.url} - ${new Date().toISOString()}`);
