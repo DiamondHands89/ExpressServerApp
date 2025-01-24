@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Middleware to prepare JSON 
+app.use(express.json());
+
 // Import data files
 const users = require('./data/users');
 const posts = require('./data/posts');
@@ -46,6 +49,45 @@ app.post('/comments', (req, res) => {
     const newComment = req.body;
     comments.push(newComment);
     res.status(201).json(newComment);
+});
+
+
+// Define PATCH Routes
+app.patch('/users/:id', (req, res) => {
+    const userId = req.params.id;
+    const updatedUser = req.body;
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex !== -1) {
+        users[userIndex] = { ...users[userIndex], ...updatedUser };
+        res.json(users[userIndex]);
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
+
+// Define PUT Routes
+app.patch('/posts/:id', (req, res) => {
+    const postId = req.params.id;
+    const updatedPost = req.body;
+    const postIndex = posts.findIndex(post => post.id === postId);
+    if (postIndex !== -1) {
+        posts[postIndex] = updatedPost;
+        res.json(posts[postIndex]);
+    } else {
+        res.status(404).json({ message: 'Post not found' });
+    }
+});
+
+// Define DELETE Routes
+app.delete('/comments/:id', (req, res) => {
+    const commentId = req.params.id;
+    const commentIndex = comments.findIndex(comment => comment.id === commentId);
+    if (commentIndex !== -1) {
+        const deletedComment = comments.splice(commentIndex, 1);
+        res.json(deletedComment);
+    } else {
+        res.status(404).json({ message: 'Comment not found' });
+    }
 });
 
 
